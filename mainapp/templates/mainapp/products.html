@@ -7,7 +7,6 @@
 				<a href="/" class="logo"></a>
 					{% include 'geekshop/includes/main_menu.html' %}
 				<a href="#" class="search"></a>
-                <a href="#" class="basket"></a>
 			</div>
 		</div>
 
@@ -30,7 +29,7 @@
 			<div class="details-products">
 				<div class="details-slider">
 					<div class="slider-product">
-						<img src="{% static '/geekshop/img/slider1.jpg' %}">
+						<img src="{{ hot_product.image.url }}">
 					</div>
 					<div class="slider-control">
 						<div class="block">
@@ -54,17 +53,12 @@
 				<div class="description">
 					<h3 class="big-bold">{{ product_1.name }}</h3>
 					<h3 class="red">горячее предложение</h3>
-					<p class="price">{{ product_1.price }}<span>руб</span></p>
-					<a href="#" class="red-button">
+					<p class="price">{{ hot_product.price }}<span>руб</span></p>
+					<a href="{% url 'mainapp:detail' pk=hot_product.pk %}" class="red-button">
 						заказать <i class="fa fa-chevron-right" aria-hidden="true"></i>
 					</a>
 					<div class="description-text">
-						<p>{{ product_1.short_desc }}</p>
-						<p>Отличное качество материалов
-						позволит вам это.</p> 
-						<p>Различные цвета</p>
-						<p>высочайший уровень
-						эргономики и прочность.</p>
+						{{ hot_product.description }}
 					</div>
 				</div>
 			</div>
@@ -81,10 +75,10 @@
 
                     {% for product in products %}
                       <div class="block">
-                        <a href="#">
+                        <a href="{% url 'mainapp:detail' pk=product.pk %}">
                           <img src="/media/{{ product.image }}" alt="product">
                           <div class="text">
-                            <img src="{% static 'img/icon-hover.png' %}" alt="hover">
+                            <img src="{% static '/geekshop/img/icon-hover.png' %}" alt="hover">
                               <h4>{{ product.name }}</h4>
                               <p>{{ product.description }}</p>
                           </div>
@@ -94,9 +88,6 @@
 
                  </div>
 
-
-
-
 			<div class="related">
 				<div class="title clearfix">
 					<h2>Похожие продукты</h2>
@@ -105,9 +96,9 @@
 				<div class="related-products clearfix">
                     {% for product in products %}
                         <div class="block">
-                            <a href="{% url 'basket:add' pk=product.pk %}"><img src="/media/{{ product.image }}" alt="">
+                            <a href="{% url 'mainapp:detail' pk=product.pk %}"><img src="/media/{{ product.image }}" alt="">
                                 <div class="text">
-                                    <img src="img/icon-hover.png" alt="img">
+                                    <img src="{% static '/geekshop/img/icon-hover.png' %}" alt="img">
                                     <h4>{{ product.name }}</h4>
                                     <p>{{ product.description }} </p>
                                 </div>
