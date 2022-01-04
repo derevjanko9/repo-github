@@ -3,6 +3,20 @@
 					<li><a href="{% url 'products:index' %}" class="{% if request.resolver_match.route == 'products/' %} active {% endif %}">продукты</a></li>
 					<li><a href="{% url 'contacts' %}" class="{% if request.resolver_match.route == 'contacts/' %} active {% endif %}">контакты</a></li>
 					{% if user.is_authenticated %}
+       					<li>
+            				<a href="{% url 'auth:edit' %}">
+                				{{ user.first_name|default:'Пользователь' }}
+            				</a>
+        				</li>
+        				{% if user.is_superuser %}
+            				<li>
+                				<a href="{% url 'admin_staff:users' %}">
+                    				админка
+                				</a>
+            				</li>
+        				{% endif %}
+    				{% endif %}
+					{% if user.is_authenticated %}
 						<li>
 							<a href="{% url 'auth:edit' %}">
 								{{ user.first_name|default:'Пользователь' }}

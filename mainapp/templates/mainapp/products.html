@@ -51,7 +51,7 @@
 				</div>
 
 				<div class="description">
-					<h3 class="big-bold">{{ product_1.name }}</h3>
+					<h3 class="big-bold">{{ hot_product.name }}</h3>
 					<h3 class="red">горячее предложение</h3>
 					<p class="price">{{ hot_product.price }}<span>руб</span></p>
 					<a href="{% url 'mainapp:detail' pk=hot_product.pk %}" class="red-button">
@@ -72,6 +72,23 @@
                       {% endif %}
                   </div>
 				<div class="related-products clearfix">
+
+                  <div class="paginator">
+                      {% if products.has_previous %}
+                        <a href="{% url 'products:page' category.pk products.previous_page_number %}">
+                          <
+                        </a>
+                      {% endif %}
+                      <span class="current">
+                        страница {{ products.number }} из
+                        {{ products.paginator.num_pages }}
+                      </span>
+                      {% if products.has_next %}
+                        <a href="{% url 'products:page' category.pk products.next_page_number %}">
+                          >
+                        </a>
+                      {% endif %}
+				  </div>
 
                     {% for product in products %}
                       <div class="block">
